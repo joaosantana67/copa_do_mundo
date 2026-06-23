@@ -1,4 +1,4 @@
-import {View, Text, TextInput, Button, FlatList,Alert} from 'react-native';
+import {View, Text, TextInput, Button, FlatList,Alert, StyleSheet} from 'react-native';
 import {useState,useContext} from 'react';
 import { CopaContext } from '../Context/Copa';
 
@@ -26,43 +26,31 @@ export default function Avaliacoes() {
   }
 
   return (
-    <View style={{ padding: 15 }}>
+    <View style={styles.container}>
 
-      <Text>Jogador</Text>
+      <Text style = {styles.textocampo}>Jogador</Text>
 
       <TextInput
         value={jogador}
         onChangeText={setJogador}
-        style={{
-          borderWidth: 1,
-          padding: 10,
-          marginBottom: 10
-        }}
+        style={styles.input}
       />
 
-      <Text>Nota (1 a 5)</Text>
+      <Text style = {styles.textocampo}>Nota (1 a 5)</Text>
 
       <TextInput
         value={nota}
         onChangeText={setNota}
         keyboardType="numeric"
-        style={{
-          borderWidth: 1,
-          padding: 10,
-          marginBottom: 10
-        }}
+        style={styles.input}
       />
 
-      <Text>Comentário</Text>
+      <Text style = {styles.textocampo}>Comentário</Text>
 
       <TextInput
         value={comentario}
         onChangeText={setComentario}
-        style={{
-          borderWidth: 1,
-          padding: 10,
-          marginBottom: 10
-        }}
+        style={styles.input}
       />
 
       <Button
@@ -76,16 +64,11 @@ export default function Avaliacoes() {
         renderItem={({ item }) => (
 
           <View
-            style={{
-              borderWidth: 1,
-              padding: 10,
-              marginTop: 10
-            }}
-          >
+            style={styles.card}>
 
-            <Text> Jogador: {item.jogador} </Text>
+            <Text style = {styles.jogador}> Jogador: {item.jogador} </Text>
 
-            <Text> {'⭐'.repeat(Number(item.nota))} </Text> 
+            <Text style = {styles.estrelas}> {'⭐'.repeat(Number(item.nota))} </Text> 
 
             <Text> {item.comentario} </Text>
 
@@ -97,3 +80,54 @@ export default function Avaliacoes() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+
+  container: {
+    flex: 1,
+    backgroundColor: '#f5f5f5',
+    padding: 15
+  },
+
+  titulo: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: 20
+  },
+
+  textocampo: {
+    fontWeight: 'bold',
+    marginBottom: 5
+  },
+
+  input: {
+    backgroundColor: '#fff',
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 10,
+    padding: 12,
+    marginBottom: 15
+  },
+
+  card: {
+    backgroundColor: '#fff',
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 10,
+    padding: 15,
+    marginTop: 10
+  },
+
+  jogador: {
+    fontSize: 17,
+    fontWeight: 'bold'
+  },
+
+  estrelas: {
+    marginTop: 5,
+    marginBottom: 5,
+    fontSize: 18
+  }
+
+});

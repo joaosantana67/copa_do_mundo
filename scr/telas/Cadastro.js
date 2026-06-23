@@ -1,11 +1,10 @@
 import { useState, useContext } from 'react';
-import {View, Text, TextInput, Button, Alert} from 'react-native';
+import {View, Text, TextInput, Button, Alert, StyleSheet} from 'react-native';
 import { CopaContext } from '../Context/Copa';
 
-export default function CadastroScreen() {
+export default function Cadastro() {
 
-  const { adicionarJogador } =
-    useContext(CopaContext);
+  const { adicionarJogador } = useContext(CopaContext);
 
   const [nome, setNome] = useState('');
   const [selecao, setSelecao] = useState('');
@@ -14,13 +13,12 @@ export default function CadastroScreen() {
 
   function cadastrar() {
 
-    if (!nome || !selecao || !posicao || !camisa
-    ) {
-        Alert.alert('Erro','Preencha todos os campos');
+    if (!nome || !selecao || !posicao || !camisa) {
+      Alert.alert('Ai não','não deixa nada em branco');
       return;
     }
 
-    adicionarJogador({id: Date.now().toString(), nome, selecao,posicao,camisa});
+    adicionarJogador({id: Date.now().toString(), nome, selecao, posicao, camisa});
 
     setNome('');
     setSelecao('');
@@ -28,68 +26,100 @@ export default function CadastroScreen() {
     setCamisa('');
 
     Alert.alert(
-      'Ai sim!',
-      'Jogador cadastrado, comente ou veja comentarios sobre ele nas avaliações'
+      'Ai sim',
+      'Jogador cadastrado, avalie ele ou veja as avaliações dele'
     );
   }
 
   return (
-    <View style={{ padding: 20 }}>
+    <View style={styles.container}>
 
-      <Text>Nome</Text>
+      <Text style={styles.titulo}>
+        Resenha da Copa
+      </Text>
+
+      <Text style={styles.label}>
+        Nome do Jogador
+      </Text>
 
       <TextInput
-      value={nome}
+        value={nome}
         onChangeText={setNome}
-        style={{
-          borderWidth: 1,
-          padding: 10,
-          marginBottom: 10
-        }}
+        placeholder="Digite o nome"
+        style={styles.input}
       />
 
-      <Text>Seleção</Text>
+      <Text style={styles.label}>
+        Seleção
+      </Text>
 
       <TextInput
         value={selecao}
         onChangeText={setSelecao}
-        style={{
-          borderWidth: 1,
-          padding: 10,
-          marginBottom: 10
-        }}
+        placeholder="Digite a seleção"
+        style={styles.input}
       />
 
-      <Text>Posição</Text>
+      <Text style={styles.label}>
+        Posição
+      </Text>
 
       <TextInput
         value={posicao}
         onChangeText={setPosicao}
-        style={{
-          borderWidth: 1,
-          padding: 10,
-          marginBottom: 10
-        }}
+        placeholder="Digite a posição"
+        style={styles.input}
       />
 
-      <Text>Número da Camisa</Text>
+      <Text style={styles.label}>
+        Número da Camisa
+      </Text>
 
       <TextInput
         value={camisa}
         onChangeText={setCamisa}
         keyboardType="numeric"
-        style={{
-          borderWidth: 1,
-          padding: 10,
-          marginBottom: 10
-        }}
+        placeholder="Digite o número"
+        style={styles.input}
       />
 
       <Button
-        title="Cadastrar"
+        title="Cadastrar Jogador"
         onPress={cadastrar}
       />
 
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+
+  container: {
+    flex: 1,
+    backgroundColor: '#f5f5f5',
+    padding: 20
+  },
+
+  titulo: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: 20,
+    color: '#006400'
+  },
+
+  label: {
+    fontWeight: 'bold',
+    marginBottom: 5
+  },
+
+  input: {
+    backgroundColor: '#fff',
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 10,
+    padding: 12,
+    marginBottom: 15
+  }
+
+});
